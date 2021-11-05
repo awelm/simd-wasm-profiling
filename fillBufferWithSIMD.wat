@@ -12,14 +12,14 @@
       (loop $top
         ;; Loop while buffer pointer is less than total buffer size
         (br_if $break (i32.eq (get_local $bufferSizeBytes) (get_local $bufferPtr)))
-        ;; Set the current 16 byte block (pointed to by bufferPtr) to contain all 1's
+        ;; Set the current 128-bit block (pointed to by bufferPtr) to contain all 1's
         (v128.store (get_local $bufferPtr) (v128.const i32x4 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF)) 
-        ;; Increment buffer pointer by 16 bytes
+        ;; Increment buffer pointer by 128-bits (aka 16 bytes)
         (set_local $bufferPtr (i32.add (get_local $bufferPtr) (i32.const 16)))
         (br $top)
       )
     )
-    ;; Return the 16 byte value pointed to by randomIndex
+    ;; Return the 128-bit value pointed to by randomIndex
     (v128.load (i32.mul (get_local $randomIndex) (i32.const 16)))
   )
   (export "fillBufferWithSIMD" (func $fillBufferWithSIMD))
