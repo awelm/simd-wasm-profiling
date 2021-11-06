@@ -1,7 +1,7 @@
 (module
   ;; Allocate a memory buffer of 1000 64Kb pages
   (memory (export "memory") 1000 1000)
-  (func $fillBufferWithoutSIMD (param $numIterations i32) (result i32)
+  (func $fillBufferWithoutSIMD (param $numIterations i32)
     ;; declare local variables
     (local $currentIteration i32)
     (local $bufferPtr i32)
