@@ -1,7 +1,7 @@
 (module
   ;; Allocate a memory buffer of 1000 64Kb pages
   (memory (export "memory") 1000 1000)
-  (func $fillBufferWithSIMD (param $numIterations i32) (param $randomIndex i32) (result v128)
+  (func $fillBufferWithSIMD (param $numIterations i32) (result v128)
     ;; declare local variables
     (local $currentIteration i32)
     (local $bufferPtr i32)
@@ -36,9 +36,6 @@
         (br $allIterationsTop) 
       ) 
     )
-
-    ;; Return the 128-bit value pointed to by randomIndex
-    (v128.load (i32.mul (get_local $randomIndex) (i32.const 16)))
   )
   (export "fillBufferWithSIMD" (func $fillBufferWithSIMD))
 )
