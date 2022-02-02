@@ -1,5 +1,4 @@
-# simd-wasm-profiling
-Exploring SIMD performance improvements in WebAssembly
+# Exploring SIMD performance improvements in WebAssembly
 
 Run following command to profile 128-bit SIMD performance:
 ```
