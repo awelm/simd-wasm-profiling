@@ -8,31 +8,31 @@
     (local $bufferSizeBytes i32)
 
     ;; Set currentIteration=0 and bufferSizeBytes=64Mb 
-    (set_local $currentIteration (i32.const 0))
-    (set_local $bufferSizeBytes (i32.const 64000000))
+    (local.set $currentIteration (i32.const 0))
+    (local.set $bufferSizeBytes (i32.const 64000000))
 
     ;; For each iteration we will fill the entire memory buffer with 1 bits 
     (block $breakAllIterations
       (loop $allIterationsTop
         ;; Loop while currentIteration < numIterations 
-        (br_if $breakAllIterations (i32.eq (get_local $numIterations) (get_local $currentIteration)))
+        (br_if $breakAllIterations (i32.eq (local.get $numIterations) (local.get $currentIteration)))
 
         ;; Prepare for the current iteration. The buffer pointer should start at 0
-        (set_local $bufferPtr (i32.const 0))
+        (local.set $bufferPtr (i32.const 0))
 
         (block $break
           (loop $top
             ;; Loop while buffer pointer is less than total buffer size
-            (br_if $break (i32.eq (get_local $bufferSizeBytes) (get_local $bufferPtr)))
+            (br_if $break (i32.eq (local.get $bufferSizeBytes) (local.get $bufferPtr)))
             ;; Set the current 32-bit block (pointed to by bufferPtr) to contain all 1's
-            (i32.store (get_local $bufferPtr) (i32.const 0xFFFFFFFF))
+            (i32.store (local.get $bufferPtr) (i32.const 0xFFFFFFFF))
             ;; Increment buffer pointer by 32-bits (aka 4 bytes)
-            (set_local $bufferPtr (i32.add (get_local $bufferPtr) (i32.const 4)))
+            (local.set $bufferPtr (i32.add (local.get $bufferPtr) (i32.const 4)))
             (br $top)
           )
         )
 
-        (set_local $currentIteration (i32.add (get_local $currentIteration) (i32.const 1))) 
+        (local.set $currentIteration (i32.add (local.get $currentIteration) (i32.const 1))) 
         (br $allIterationsTop) 
       ) 
     ) 
